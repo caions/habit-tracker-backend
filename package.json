@@ -1,0 +1,16 @@
+{
+  "name": "habit-tracker-backend",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node-dev --transpile-only --respawn --quiet index.ts"
+  },
+  "keywords": [],
+  "author": "Caio Nascimento",
+  "license": "ISC",
+  "dependencies": {
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0"
+  }
+}
