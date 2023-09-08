@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev --transpile-only --respawn --quiet index.ts"
+    "start": "ts-node-dev --transpile-only --respawn --quiet src/index.ts",
+    "test": "jest"
   },
   "keywords": [],
   "author": "Caio Nascimento",
@@ -12,5 +13,9 @@
   "dependencies": {
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.4",
+    "ts-jest": "^29.1.1"
   }
 }
