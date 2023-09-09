@@ -22,6 +22,15 @@ export class MemoryHabitRepository implements HabitRepositoryProtocol {
     return this.habits.get(id)
   }
 
+  findByName(name: string) {
+    for (const [, habit] of this.habits.entries()) {
+      if (habit.name === name) {
+        return habit;
+      }
+    }
+    return null;
+  }
+
   delete(id: string) {
     this.habits.delete(id)
   }

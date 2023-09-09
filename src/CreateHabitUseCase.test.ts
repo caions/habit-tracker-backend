@@ -19,4 +19,11 @@ describe('Store a habit', () => {
     const createHabitUseCase = new CreateHabitUseCase(memoryHabitRepository)
     expect(() => createHabitUseCase.execute('')).toThrow('empty name are not allowed')
   })
+
+  it('should be NOT able to store a habit with duplicated name', () => {
+    const memoryHabitRepository = new MemoryHabitRepository()
+    const createHabitUseCase = new CreateHabitUseCase(memoryHabitRepository)
+    createHabitUseCase.execute('run')
+    expect(() => createHabitUseCase.execute('run')).toThrow('habit already exist')
+  })
 });

@@ -3,5 +3,6 @@ export interface HabitRepositoryProtocol {
   list: () => Habit[]
   update: (habit: Habit) => void
   findById: (id: string) => Habit
+  findByName: (name: string) => Habit
   delete: (id: string) => void
 }

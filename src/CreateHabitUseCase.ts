@@ -16,6 +16,9 @@ export class CreateHabitUseCase {
     if (habit.name === "") {
       throw new Error('empty name are not allowed')
     }
+    if (this.habitRepository.findByName(habit.name)) {
+      throw new Error('habit already exist')
+    }
     this.habitRepository.create(habit)
   }
 }
