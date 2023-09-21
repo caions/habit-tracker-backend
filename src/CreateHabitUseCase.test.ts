@@ -14,13 +14,13 @@ describe('Store a habit', () => {
     expect(firstHabit.completed).toBeFalsy()
   })
 
-  it('should be NOT able to store a habit with empty name', () => {
+  it('should NOT be able to store a habit with empty name', () => {
     const memoryHabitRepository = new MemoryHabitRepository()
     const createHabitUseCase = new CreateHabitUseCase(memoryHabitRepository)
     expect(() => createHabitUseCase.execute('')).toThrow('empty name are not allowed')
   })
 
-  it('should be NOT able to store a habit with duplicated name', () => {
+  it('should NOT be able to store a habit with duplicated name', () => {
     const memoryHabitRepository = new MemoryHabitRepository()
     const createHabitUseCase = new CreateHabitUseCase(memoryHabitRepository)
     createHabitUseCase.execute('run')

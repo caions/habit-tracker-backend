@@ -26,7 +26,7 @@ describe('Update a habit', () => {
     expect(firstHabit.completed).toBeTruthy()
   })
 
-  it('should be NOT able to update a habit with empty name', () => {
+  it('should NOT be able to update a habit with empty name', () => {
     const memoryHabitRepository = new MemoryHabitRepository()
     const updateHabitUseCase = new UpdateHabitUseCase(memoryHabitRepository)
     const habit = {
