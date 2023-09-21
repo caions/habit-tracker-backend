@@ -3,9 +3,15 @@ import { MemoryHabitRepository } from '../../adapters/database/inMemory/MemoryHa
 import { CreateHabitUseCase } from '../CreateHabitUseCase';
 
 describe('Store a habit', () => {
+  let memoryHabitRepository: MemoryHabitRepository
+  let createHabitUseCase: CreateHabitUseCase
+
+  beforeEach(() => {
+    memoryHabitRepository = new MemoryHabitRepository()
+    createHabitUseCase = new CreateHabitUseCase(memoryHabitRepository)
+  })
+
   it('should be able to store a habit with completed false', () => {
-    const memoryHabitRepository = new MemoryHabitRepository()
-    const createHabitUseCase = new CreateHabitUseCase(memoryHabitRepository)
     createHabitUseCase.execute('run')
     const habits = memoryHabitRepository.habits
     const firstHabit = habits.entries().next().value[1]
@@ -15,14 +21,10 @@ describe('Store a habit', () => {
   })
 
   it('should NOT be  able to store a habit with empty name', () => {
-    const memoryHabitRepository = new MemoryHabitRepository()
-    const createHabitUseCase = new CreateHabitUseCase(memoryHabitRepository)
     expect(() => createHabitUseCase.execute('')).toThrow('empty name are not allowed')
   })
 
   it('should NOT be  able to store a habit with duplicated name', () => {
-    const memoryHabitRepository = new MemoryHabitRepository()
-    const createHabitUseCase = new CreateHabitUseCase(memoryHabitRepository)
     createHabitUseCase.execute('run')
     expect(() => createHabitUseCase.execute('run')).toThrow('habit already exist')
   })

@@ -5,11 +5,19 @@ import { CreateHabitUseCase } from '../CreateHabitUseCase';
 import { UpdateHabitUseCase } from '../UpdateHabitUseCase';
 
 describe('Find a habit', () => {
-  it('should be able to find a habit', () => {
-    const memoryHabitRepository = new MemoryHabitRepository()
-    const createHabitUseCase = new CreateHabitUseCase(memoryHabitRepository)
-    const findHabitUseCase = new FindHabitUseCase(memoryHabitRepository)
+  let memoryHabitRepository: MemoryHabitRepository
+  let createHabitUseCase: CreateHabitUseCase
+  let findHabitUseCase: FindHabitUseCase
+  let updateHabitUseCase: UpdateHabitUseCase
 
+  beforeEach(() => {
+    memoryHabitRepository = new MemoryHabitRepository()
+    createHabitUseCase = new CreateHabitUseCase(memoryHabitRepository)
+    findHabitUseCase = new FindHabitUseCase(memoryHabitRepository)
+    updateHabitUseCase = new UpdateHabitUseCase(memoryHabitRepository)
+  })
+
+  it('should be able to find a habit', () => {
     createHabitUseCase.execute('habit');
     const habits = memoryHabitRepository.habits
     const habitId = habits.entries().next().value[1].id
@@ -21,11 +29,6 @@ describe('Find a habit', () => {
   })
 
   it('should be able to find a updated habit', () => {
-    const memoryHabitRepository = new MemoryHabitRepository()
-    const createHabitUseCase = new CreateHabitUseCase(memoryHabitRepository)
-    const updateHabitUseCase = new UpdateHabitUseCase(memoryHabitRepository)
-    const findHabitUseCase = new FindHabitUseCase(memoryHabitRepository)
-
     createHabitUseCase.execute('habit');
     const habits = memoryHabitRepository.habits
     const habitId = habits.entries().next().value[1].id
@@ -44,8 +47,6 @@ describe('Find a habit', () => {
   })
 
   it('should be throw a error when habit not exist', () => {
-    const memoryHabitRepository = new MemoryHabitRepository()
-    const findHabitUseCase = new FindHabitUseCase(memoryHabitRepository)
     const habit = {
       id: 'habitId',
       name: 'updated',

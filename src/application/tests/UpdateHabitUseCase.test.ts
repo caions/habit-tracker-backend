@@ -4,11 +4,17 @@ import { UpdateHabitUseCase } from '../UpdateHabitUseCase';
 import { CreateHabitUseCase } from '../CreateHabitUseCase';
 
 describe('Update a habit', () => {
-  it('should be able to update a habit', () => {
-    const memoryHabitRepository = new MemoryHabitRepository()
-    const createHabitUseCase = new CreateHabitUseCase(memoryHabitRepository)
-    const updateHabitUseCase = new UpdateHabitUseCase(memoryHabitRepository)
+  let memoryHabitRepository: MemoryHabitRepository
+  let createHabitUseCase: CreateHabitUseCase
+  let updateHabitUseCase: UpdateHabitUseCase
 
+  beforeEach(() => {
+    memoryHabitRepository = new MemoryHabitRepository()
+    createHabitUseCase = new CreateHabitUseCase(memoryHabitRepository)
+    updateHabitUseCase = new UpdateHabitUseCase(memoryHabitRepository)
+  })
+
+  it('should be able to update a habit', () => {
     createHabitUseCase.execute('old');
     const habits = memoryHabitRepository.habits
 
@@ -27,8 +33,6 @@ describe('Update a habit', () => {
   })
 
   it('should NOT be able to update a habit with empty name', () => {
-    const memoryHabitRepository = new MemoryHabitRepository()
-    const updateHabitUseCase = new UpdateHabitUseCase(memoryHabitRepository)
     const habit = {
       id: 'habitId',
       name: 'updated',

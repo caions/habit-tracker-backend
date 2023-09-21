@@ -4,11 +4,17 @@ import { CreateHabitUseCase } from '../CreateHabitUseCase';
 import { DeleteHabitUseCase } from '../DeleteHabitUseCase';
 
 describe('Delete a habit', () => {
-  it('should be able to delete a habit', () => {
-    const memoryHabitRepository = new MemoryHabitRepository()
-    const createHabitUseCase = new CreateHabitUseCase(memoryHabitRepository)
-    const deleteHabitUseCase = new DeleteHabitUseCase(memoryHabitRepository)
+  let memoryHabitRepository: MemoryHabitRepository
+  let createHabitUseCase: CreateHabitUseCase
+  let deleteHabitUseCase: DeleteHabitUseCase
 
+  beforeEach(() => {
+    memoryHabitRepository = new MemoryHabitRepository()
+    createHabitUseCase = new CreateHabitUseCase(memoryHabitRepository)
+    deleteHabitUseCase = new DeleteHabitUseCase(memoryHabitRepository)
+  })
+
+  it('should be able to delete a habit', () => {
     createHabitUseCase.execute('habit');
     const habits = memoryHabitRepository.habits
     const habitId = habits.entries().next().value[1].id
@@ -18,8 +24,6 @@ describe('Delete a habit', () => {
   })
 
   it('should be throw a error when habit not exist', () => {
-    const memoryHabitRepository = new MemoryHabitRepository()
-    const deleteHabitUseCase = new DeleteHabitUseCase(memoryHabitRepository)
     const habit = {
       id: 'habitId',
       name: 'updated',
