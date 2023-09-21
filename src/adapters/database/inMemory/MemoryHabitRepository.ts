@@ -1,4 +1,4 @@
-import { HabitRepositoryProtocol } from './HabitRepositoryProtocol'
+import { HabitRepositoryProtocol } from '../../../domain/repositories/HabitRepositoryProtocol'
 
 export class MemoryHabitRepository implements HabitRepositoryProtocol {
   habits = new Map()

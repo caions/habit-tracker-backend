@@ -1,7 +1,7 @@
 import { describe, expect } from '@jest/globals';
-import { MemoryHabitRepository } from './MemoryHabitRepository';
-import { CreateHabitUseCase } from './CreateHabitUseCase';
-import { DeleteHabitUseCase } from './DeleteHabitUseCase';
+import { MemoryHabitRepository } from '../../adapters/database/inMemory/MemoryHabitRepository';
+import { CreateHabitUseCase } from '../CreateHabitUseCase';
+import { DeleteHabitUseCase } from '../DeleteHabitUseCase';
 
 describe('Delete a habit', () => {
   it('should be able to delete a habit', () => {

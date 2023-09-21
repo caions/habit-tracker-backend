@@ -1,6 +1,6 @@
 import { describe, expect } from '@jest/globals';
-import { MemoryHabitRepository } from './MemoryHabitRepository';
-import { CreateHabitUseCase } from './CreateHabitUseCase';
+import { MemoryHabitRepository } from '../../adapters/database/inMemory/MemoryHabitRepository';
+import { CreateHabitUseCase } from '../CreateHabitUseCase';
 
 describe('Store a habit', () => {
   it('should be able to store a habit with completed false', () => {
@@ -14,13 +14,13 @@ describe('Store a habit', () => {
     expect(firstHabit.completed).toBeFalsy()
   })
 
-  it('should NOT be able to store a habit with empty name', () => {
+  it('should NOT be  able to store a habit with empty name', () => {
     const memoryHabitRepository = new MemoryHabitRepository()
     const createHabitUseCase = new CreateHabitUseCase(memoryHabitRepository)
     expect(() => createHabitUseCase.execute('')).toThrow('empty name are not allowed')
   })
 
-  it('should NOT be able to store a habit with duplicated name', () => {
+  it('should NOT be  able to store a habit with duplicated name', () => {
     const memoryHabitRepository = new MemoryHabitRepository()
     const createHabitUseCase = new CreateHabitUseCase(memoryHabitRepository)
     createHabitUseCase.execute('run')

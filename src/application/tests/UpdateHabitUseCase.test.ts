@@ -1,7 +1,7 @@
 import { describe, expect } from '@jest/globals';
-import { MemoryHabitRepository } from './MemoryHabitRepository';
-import { UpdateHabitUseCase } from './UpdateHabitUseCase';
-import { CreateHabitUseCase } from './CreateHabitUseCase';
+import { MemoryHabitRepository } from '../../adapters/database/inMemory/MemoryHabitRepository';
+import { UpdateHabitUseCase } from '../UpdateHabitUseCase';
+import { CreateHabitUseCase } from '../CreateHabitUseCase';
 
 describe('Update a habit', () => {
   it('should be able to update a habit', () => {

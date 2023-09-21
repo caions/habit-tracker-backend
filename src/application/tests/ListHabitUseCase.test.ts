@@ -1,7 +1,7 @@
 import { describe, expect } from '@jest/globals';
-import { MemoryHabitRepository } from './MemoryHabitRepository';
-import { CreateHabitUseCase } from './CreateHabitUseCase';
-import { ListHabitUseCase } from './ListHabitUseCase';
+import { MemoryHabitRepository } from '../../adapters/database/inMemory/MemoryHabitRepository';
+import { CreateHabitUseCase } from '../CreateHabitUseCase';
+import { ListHabitUseCase } from '../ListHabitUseCase';
 
 describe('List all habits', () => {
   it('should be able to list all stored habits', () => {

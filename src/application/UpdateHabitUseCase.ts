@@ -1,4 +1,4 @@
-import { HabitRepositoryProtocol } from "./HabitRepositoryProtocol";
+import { HabitRepositoryProtocol } from "../domain/repositories/HabitRepositoryProtocol";
 
 export class UpdateHabitUseCase {
   constructor(private habitRepository: HabitRepositoryProtocol) { }

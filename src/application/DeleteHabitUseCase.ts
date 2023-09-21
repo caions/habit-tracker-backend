@@ -1,6 +1,6 @@
-import { HabitRepositoryProtocol } from "./HabitRepositoryProtocol";
+import { HabitRepositoryProtocol } from "../domain/repositories/HabitRepositoryProtocol";
 
-export class FindHabitUseCase {
+export class DeleteHabitUseCase {
   constructor(private habitRepository: HabitRepositoryProtocol) { }
 
   execute(id: string) {
@@ -8,6 +8,6 @@ export class FindHabitUseCase {
     if (!foundedHabit) {
       throw new Error('habit not found')
     }
-    return foundedHabit
+    this.habitRepository.delete(id)
   }
 }

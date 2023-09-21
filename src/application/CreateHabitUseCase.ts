@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto'
-import { HabitRepositoryProtocol } from "./HabitRepositoryProtocol";
+import { HabitRepositoryProtocol } from "../domain/repositories/HabitRepositoryProtocol";
 
 export class CreateHabitUseCase {
 
