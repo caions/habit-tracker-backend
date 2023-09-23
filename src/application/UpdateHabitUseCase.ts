@@ -1,12 +1,14 @@
+import { Habit } from "../domain/entities/Habit";
 import { HabitRepositoryProtocol } from "../domain/repositories/HabitRepositoryProtocol";
 
 export class UpdateHabitUseCase {
   constructor(private habitRepository: HabitRepositoryProtocol) { }
 
-  execute(habit: Habit) {
-    if (!this.habitRepository.findById(habit.id)) {
+  async execute(habit: Habit) {
+    const foundedHabit = await this.habitRepository.findById(habit.id)
+    if (!foundedHabit) {
       throw new Error('habit not found')
     }
-    this.habitRepository.update(habit)
+    await this.habitRepository.update(habit)
   }
 }

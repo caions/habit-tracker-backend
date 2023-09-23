@@ -11,8 +11,8 @@ describe('Store a habit', () => {
     createHabitUseCase = new CreateHabitUseCase(memoryHabitRepository)
   })
 
-  it('should be able to store a habit with completed false', () => {
-    createHabitUseCase.execute('run')
+  it('should be able to store a habit with completed false', async () => {
+    await createHabitUseCase.execute('run')
     const habits = memoryHabitRepository.habits
     const firstHabit = habits.entries().next().value[1]
     expect(firstHabit).toHaveProperty('id')
@@ -20,12 +20,12 @@ describe('Store a habit', () => {
     expect(firstHabit.completed).toBeFalsy()
   })
 
-  it('should NOT be  able to store a habit with empty name', () => {
-    expect(() => createHabitUseCase.execute('')).toThrow('empty name are not allowed')
+  it('should NOT be  able to store a habit with empty name', async () => {
+    await expect(createHabitUseCase.execute('')).rejects.toThrowError('empty name are not allowed')
   })
 
-  it('should NOT be  able to store a habit with duplicated name', () => {
-    createHabitUseCase.execute('run')
-    expect(() => createHabitUseCase.execute('run')).toThrow('habit already exist')
+  it('should NOT be  able to store a habit with duplicated name', async () => {
+    await createHabitUseCase.execute('run')
+    await expect(createHabitUseCase.execute('run')).rejects.toThrowError('habit already exist');
   })
 });

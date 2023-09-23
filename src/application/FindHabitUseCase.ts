@@ -3,8 +3,8 @@ import { HabitRepositoryProtocol } from "../domain/repositories/HabitRepositoryP
 export class FindHabitUseCase {
   constructor(private habitRepository: HabitRepositoryProtocol) { }
 
-  execute(id: string) {
-    const foundedHabit = this.habitRepository.findById(id)
+  async execute(id: string) {
+    const foundedHabit = await this.habitRepository.findById(id)
     if (!foundedHabit) {
       throw new Error('habit not found')
     }

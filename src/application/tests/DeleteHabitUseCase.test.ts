@@ -14,21 +14,21 @@ describe('Delete a habit', () => {
     deleteHabitUseCase = new DeleteHabitUseCase(memoryHabitRepository)
   })
 
-  it('should be able to delete a habit', () => {
-    createHabitUseCase.execute('habit');
+  it('should be able to delete a habit', async () => {
+    await createHabitUseCase.execute('habit');
     const habits = memoryHabitRepository.habits
     const habitId = habits.entries().next().value[1].id
-    deleteHabitUseCase.execute(habitId)
+    await deleteHabitUseCase.execute(habitId)
 
     expect(habits.size).toBe(0)
   })
 
-  it('should be throw a error when habit not exist', () => {
+  it('should be throw a error when habit not exist', async () => {
     const habit = {
       id: 'habitId',
       name: 'updated',
       completed: true
     }
-    expect(() => deleteHabitUseCase.execute(habit.id)).toThrow('habit not found')
+    await expect(deleteHabitUseCase.execute(habit.id)).rejects.toThrowError('habit not found')
   })
 });

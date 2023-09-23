@@ -14,8 +14,8 @@ describe('Update a habit', () => {
     updateHabitUseCase = new UpdateHabitUseCase(memoryHabitRepository)
   })
 
-  it('should be able to update a habit', () => {
-    createHabitUseCase.execute('old');
+  it('should be able to update a habit', async () => {
+    await createHabitUseCase.execute('old');
     const habits = memoryHabitRepository.habits
 
     const habitId = habits.entries().next().value[1].id
@@ -26,18 +26,18 @@ describe('Update a habit', () => {
       completed: true
     }
 
-    updateHabitUseCase.execute(habit)
+    await updateHabitUseCase.execute(habit)
     const firstHabit = habits.entries().next().value[1]
     expect(firstHabit.name).toBe('updated')
     expect(firstHabit.completed).toBeTruthy()
   })
 
-  it('should NOT be able to update a habit with empty name', () => {
+  it('should NOT be able to update a habit with empty name', async () => {
     const habit = {
       id: 'habitId',
       name: 'updated',
       completed: true
     }
-    expect(() => updateHabitUseCase.execute(habit)).toThrow('habit not found')
+    await expect(updateHabitUseCase.execute(habit)).rejects.toThrowError('habit not found')
   })
 });

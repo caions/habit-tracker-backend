@@ -17,19 +17,19 @@ describe('Find a habit', () => {
     updateHabitUseCase = new UpdateHabitUseCase(memoryHabitRepository)
   })
 
-  it('should be able to find a habit', () => {
-    createHabitUseCase.execute('habit');
+  it('should be able to find a habit', async () => {
+    await createHabitUseCase.execute('habit');
     const habits = memoryHabitRepository.habits
     const habitId = habits.entries().next().value[1].id
 
-    findHabitUseCase.execute(habitId)
+    await findHabitUseCase.execute(habitId)
     const firstHabit = habits.entries().next().value[1]
     expect(firstHabit.name).toBe('habit')
     expect(firstHabit.completed).toBeFalsy()
   })
 
-  it('should be able to find a updated habit', () => {
-    createHabitUseCase.execute('habit');
+  it('should be able to find a updated habit', async () => {
+    await createHabitUseCase.execute('habit');
     const habits = memoryHabitRepository.habits
     const habitId = habits.entries().next().value[1].id
 
@@ -39,19 +39,19 @@ describe('Find a habit', () => {
       completed: true
     }
 
-    updateHabitUseCase.execute(habit)
-    findHabitUseCase.execute(habitId)
+    await updateHabitUseCase.execute(habit)
+    await findHabitUseCase.execute(habitId)
     const firstHabit = habits.entries().next().value[1]
     expect(firstHabit.name).toBe('updated')
     expect(firstHabit.completed).toBeTruthy()
   })
 
-  it('should be throw a error when habit not exist', () => {
+  it('should be throw a error when habit not exist', async () => {
     const habit = {
       id: 'habitId',
       name: 'updated',
       completed: true
     }
-    expect(() => findHabitUseCase.execute(habit.id)).toThrow('habit not found')
+    await expect(findHabitUseCase.execute(habit.id)).rejects.toThrowError('habit not found')
   })
 });

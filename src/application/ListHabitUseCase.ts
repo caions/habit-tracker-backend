@@ -3,7 +3,7 @@ import { HabitRepositoryProtocol } from "../domain/repositories/HabitRepositoryP
 export class ListHabitUseCase {
   constructor(private habitRepository: HabitRepositoryProtocol) { }
 
-  execute() {
-    return this.habitRepository.list()
+  async execute() {
+    return await this.habitRepository.list()
   }
 }

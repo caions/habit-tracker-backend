@@ -3,11 +3,11 @@ import { HabitRepositoryProtocol } from "../domain/repositories/HabitRepositoryP
 export class DeleteHabitUseCase {
   constructor(private habitRepository: HabitRepositoryProtocol) { }
 
-  execute(id: string) {
-    const foundedHabit = this.habitRepository.findById(id)
+  async execute(id: string) {
+    const foundedHabit = await this.habitRepository.findById(id)
     if (!foundedHabit) {
       throw new Error('habit not found')
     }
-    this.habitRepository.delete(id)
+    await this.habitRepository.delete(id)
   }
 }

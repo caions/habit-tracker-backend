@@ -4,14 +4,14 @@ import { CreateHabitUseCase } from '../CreateHabitUseCase';
 import { ListHabitUseCase } from '../ListHabitUseCase';
 
 describe('List all habits', () => {
-  it('should be able to list all stored habits', () => {
+  it('should be able to list all stored habits', async () => {
     const memoryHabitRepository = new MemoryHabitRepository()
     const listHabitUseCase = new ListHabitUseCase(memoryHabitRepository)
     const createHabitUseCase = new CreateHabitUseCase(memoryHabitRepository)
-    createHabitUseCase.execute('run')
-    createHabitUseCase.execute('jump')
-    createHabitUseCase.execute('talk')
-    const habits = listHabitUseCase.execute()
+    await createHabitUseCase.execute('run')
+    await createHabitUseCase.execute('jump')
+    await createHabitUseCase.execute('talk')
+    const habits = await listHabitUseCase.execute()
     expect(habits).toHaveLength(3)
   })
 });

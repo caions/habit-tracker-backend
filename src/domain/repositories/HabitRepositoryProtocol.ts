@@ -1,8 +1,10 @@
+import { Habit } from "../entities/Habit"
+
 export interface HabitRepositoryProtocol {
-  create: (habit: Habit) => void
-  list: () => Habit[]
-  update: (habit: Habit) => void
-  findById: (id: string) => Habit
-  findByName: (name: string) => Habit
-  delete: (id: string) => void
+  create: (habit: Habit) => Promise<void>
+  list: () => Promise<Habit[]>
+  update: (habit: Habit) => Promise<void>
+  findById: (id: string) => Promise<Habit>
+  findByName: (name: string) => Promise<Habit>
+  delete: (id: string) => Promise<void>
 }
