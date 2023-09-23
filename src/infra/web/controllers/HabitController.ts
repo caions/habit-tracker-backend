@@ -1,13 +1,13 @@
 import { Request, Response } from "express"
-import { PostgresHabitRepository } from "../../../adapters/database/postgres/PostgresHabitRepository"
 import { ListHabitUseCase } from "../../../application/ListHabitUseCase"
 import { FindHabitUseCase } from "../../../application/FindHabitUseCase"
 import { CreateHabitUseCase } from "../../../application/CreateHabitUseCase"
 import { UpdateHabitUseCase } from "../../../application/UpdateHabitUseCase"
 import { DeleteHabitUseCase } from "../../../application/DeleteHabitUseCase"
+import { HabitRepositoryProtocol } from "../../../domain/repositories/HabitRepositoryProtocol"
 
 export class HabitController {
-  constructor(private habitRepository: PostgresHabitRepository) { }
+  constructor(private habitRepository: HabitRepositoryProtocol) { }
 
   index = async (request: Request, response: Response): Promise<void> => {
     try {
