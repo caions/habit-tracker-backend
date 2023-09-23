@@ -20,6 +20,6 @@ export class CreateHabitUseCase {
     if (checkHabitNameAlreadyExist) {
       throw new Error('habit already exist')
     }
-    this.habitRepository.create(habit)
+    await this.habitRepository.create(habit)
   }
 }
