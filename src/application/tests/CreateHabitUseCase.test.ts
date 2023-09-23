@@ -1,6 +1,7 @@
 import { describe, expect } from '@jest/globals';
 import { MemoryHabitRepository } from '../../adapters/database/inMemory/MemoryHabitRepository';
 import { CreateHabitUseCase } from '../CreateHabitUseCase';
+import { AppError } from '../../shared/errors/AppError';
 
 describe('Store a habit', () => {
   let memoryHabitRepository: MemoryHabitRepository
@@ -21,11 +22,13 @@ describe('Store a habit', () => {
   })
 
   it('should NOT be  able to store a habit with empty name', async () => {
-    await expect(createHabitUseCase.execute('')).rejects.toThrowError('empty name are not allowed')
+    await expect(createHabitUseCase.execute('')).rejects.toBeInstanceOf(AppError)
+    await expect(createHabitUseCase.execute('')).rejects.toEqual({ statusCode: 400, message: 'empty name are not allowed' })
   })
 
   it('should NOT be  able to store a habit with duplicated name', async () => {
     await createHabitUseCase.execute('run')
-    await expect(createHabitUseCase.execute('run')).rejects.toThrowError('habit already exist');
+    await expect(createHabitUseCase.execute('run')).rejects.toBeInstanceOf(AppError);
+    await expect(createHabitUseCase.execute('run')).rejects.toEqual({ statusCode: 400, message: 'habit already exist' })
   })
 });

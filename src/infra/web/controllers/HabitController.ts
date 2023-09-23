@@ -10,62 +10,42 @@ export class HabitController {
   constructor(private habitRepository: HabitRepositoryProtocol) { }
 
   index = async (request: Request, response: Response): Promise<void> => {
-    try {
-      const listHabitUseCase = new ListHabitUseCase(this.habitRepository);
-      const result = await listHabitUseCase.execute();
-      response.json(result);
-    } catch (error: any) {
-      response.status(500).json(error.message);
-    }
+    const listHabitUseCase = new ListHabitUseCase(this.habitRepository);
+    const result = await listHabitUseCase.execute();
+    response.json(result);
   }
 
   show = async (request: Request, response: Response): Promise<void> => {
-    try {
-      const { id } = request.params
-      const findHabitUseCase = new FindHabitUseCase(this.habitRepository)
-      const result = await findHabitUseCase.execute(id)
-      response.json(result)
-    } catch (error: any) {
-      response.status(500).json(error.message)
-    }
+    const { id } = request.params
+    const findHabitUseCase = new FindHabitUseCase(this.habitRepository)
+    const result = await findHabitUseCase.execute(id)
+    response.json(result)
   }
 
   create = async (request: Request, response: Response): Promise<void> => {
-    try {
-      const { name } = request.body
-      const createHabitUseCase = new CreateHabitUseCase(this.habitRepository)
-      await createHabitUseCase.execute(name)
-      response.json('created')
-    } catch (error: any) {
-      response.status(500).json(error.message)
-    }
+    const { name } = request.body
+    const createHabitUseCase = new CreateHabitUseCase(this.habitRepository)
+    await createHabitUseCase.execute(name)
+    response.json()
   }
 
   update = async (request: Request, response: Response): Promise<void> => {
-    try {
-      const { id } = request.query
-      const { name, completed } = request.body
-      const habit = {
-        id: String(id),
-        name,
-        completed
-      }
-      const updateHabitUseCase = new UpdateHabitUseCase(this.habitRepository)
-      await updateHabitUseCase.execute(habit)
-      response.json('updated')
-    } catch (error: any) {
-      response.status(500).json(error.message)
+    const { id } = request.query
+    const { name, completed } = request.body
+    const habit = {
+      id: String(id),
+      name,
+      completed
     }
+    const updateHabitUseCase = new UpdateHabitUseCase(this.habitRepository)
+    await updateHabitUseCase.execute(habit)
+    response.status(201).json()
   }
 
   destroy = async (request: Request, response: Response): Promise<void> => {
-    try {
-      const { id } = request.body
-      const deleteHabitUseCase = new DeleteHabitUseCase(this.habitRepository)
-      await deleteHabitUseCase.execute(id)
-      response.json('deleted')
-    } catch (error: any) {
-      response.status(500).json(error.message)
-    }
+    const { id } = request.body
+    const deleteHabitUseCase = new DeleteHabitUseCase(this.habitRepository)
+    await deleteHabitUseCase.execute(id)
+    response.json()
   }
 }

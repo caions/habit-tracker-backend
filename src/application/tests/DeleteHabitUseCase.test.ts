@@ -2,6 +2,7 @@ import { describe, expect } from '@jest/globals';
 import { MemoryHabitRepository } from '../../adapters/database/inMemory/MemoryHabitRepository';
 import { CreateHabitUseCase } from '../CreateHabitUseCase';
 import { DeleteHabitUseCase } from '../DeleteHabitUseCase';
+import { AppError } from '../../shared/errors/AppError';
 
 describe('Delete a habit', () => {
   let memoryHabitRepository: MemoryHabitRepository
@@ -29,6 +30,7 @@ describe('Delete a habit', () => {
       name: 'updated',
       completed: true
     }
-    await expect(deleteHabitUseCase.execute(habit.id)).rejects.toThrowError('habit not found')
+    await expect(deleteHabitUseCase.execute(habit.id)).rejects.toBeInstanceOf(AppError);
+    await expect(deleteHabitUseCase.execute(habit.id)).rejects.toEqual({ statusCode: 400, message: 'habit not found' })
   })
 });

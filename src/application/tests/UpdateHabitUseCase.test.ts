@@ -2,6 +2,7 @@ import { describe, expect } from '@jest/globals';
 import { MemoryHabitRepository } from '../../adapters/database/inMemory/MemoryHabitRepository';
 import { UpdateHabitUseCase } from '../UpdateHabitUseCase';
 import { CreateHabitUseCase } from '../CreateHabitUseCase';
+import { AppError } from '../../shared/errors/AppError';
 
 describe('Update a habit', () => {
   let memoryHabitRepository: MemoryHabitRepository
@@ -38,6 +39,7 @@ describe('Update a habit', () => {
       name: 'updated',
       completed: true
     }
-    await expect(updateHabitUseCase.execute(habit)).rejects.toThrowError('habit not found')
+    await expect(updateHabitUseCase.execute(habit)).rejects.toBeInstanceOf(AppError);
+    await expect(updateHabitUseCase.execute(habit)).rejects.toEqual({ statusCode: 400, message: 'habit not found' })
   })
 });

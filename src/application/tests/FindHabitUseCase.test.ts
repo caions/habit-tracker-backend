@@ -3,6 +3,7 @@ import { MemoryHabitRepository } from '../../adapters/database/inMemory/MemoryHa
 import { FindHabitUseCase } from '../FindHabitUseCase';
 import { CreateHabitUseCase } from '../CreateHabitUseCase';
 import { UpdateHabitUseCase } from '../UpdateHabitUseCase';
+import { AppError } from '../../shared/errors/AppError';
 
 describe('Find a habit', () => {
   let memoryHabitRepository: MemoryHabitRepository
@@ -52,6 +53,7 @@ describe('Find a habit', () => {
       name: 'updated',
       completed: true
     }
-    await expect(findHabitUseCase.execute(habit.id)).rejects.toThrowError('habit not found')
+    await expect(findHabitUseCase.execute(habit.id)).rejects.toBeInstanceOf(AppError);
+    await expect(findHabitUseCase.execute(habit.id)).rejects.toEqual({ statusCode: 400, message: 'habit not found' })
   })
 });

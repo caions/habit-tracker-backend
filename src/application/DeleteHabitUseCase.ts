@@ -1,4 +1,5 @@
 import { HabitRepositoryProtocol } from "../domain/repositories/HabitRepositoryProtocol";
+import { AppError } from "../shared/errors/AppError";
 
 export class DeleteHabitUseCase {
   constructor(private habitRepository: HabitRepositoryProtocol) { }
@@ -6,7 +7,7 @@ export class DeleteHabitUseCase {
   async execute(id: string) {
     const foundedHabit = await this.habitRepository.findById(id)
     if (!foundedHabit) {
-      throw new Error('habit not found')
+      throw new AppError('habit not found')
     }
     await this.habitRepository.delete(id)
   }
