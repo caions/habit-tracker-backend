@@ -31,11 +31,10 @@ export class HabitController {
 
   update = async (request: Request, response: Response): Promise<void> => {
     const { id } = request.query
-    const { name, completed } = request.body
+    const { name } = request.body
     const habit = {
       id: String(id),
-      name,
-      completed
+      name
     }
     const updateHabitUseCase = new UpdateHabitUseCase(this.habitRepository)
     await updateHabitUseCase.execute(habit)

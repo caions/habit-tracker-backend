@@ -6,7 +6,7 @@ export class PostgresHabitRepository implements HabitRepositoryProtocol {
   constructor() { }
 
   async create(habit: Habit) {
-    await pool.query('INSERT INTO habits(id, name, completed, created_at, updated_at) VALUES($1, $2, $3, NOW(),NOW())', [habit.id, habit.name, habit.completed]);
+    await pool.query('INSERT INTO habits(id, name, created_at, updated_at) VALUES($1, $2, NOW(),NOW())', [habit.id, habit.name]);
   };
 
   async list() {
@@ -15,7 +15,7 @@ export class PostgresHabitRepository implements HabitRepositoryProtocol {
   };
 
   async update(habit: Habit) {
-    await pool.query('UPDATE habits SET name = $1, completed = $2, updated_at = NOW() WHERE ID = $3', [habit.name, habit.completed, habit.id])
+    await pool.query('UPDATE habits SET name = $1, updated_at = NOW() WHERE ID = $2', [habit.name, habit.id])
   };
 
   async findById(id: string) {

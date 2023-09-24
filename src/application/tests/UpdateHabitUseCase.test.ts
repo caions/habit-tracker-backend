@@ -23,21 +23,18 @@ describe('Update a habit', () => {
 
     const habit = {
       id: habitId,
-      name: 'updated',
-      completed: true
+      name: 'updated'
     }
 
     await updateHabitUseCase.execute(habit)
     const firstHabit = habits.entries().next().value[1]
     expect(firstHabit.name).toBe('updated')
-    expect(firstHabit.completed).toBeTruthy()
   })
 
   it('should NOT be able to update a habit with empty name', async () => {
     const habit = {
       id: 'habitId',
-      name: 'updated',
-      completed: true
+      name: 'updated'
     }
     await expect(updateHabitUseCase.execute(habit)).rejects.toBeInstanceOf(AppError);
     await expect(updateHabitUseCase.execute(habit)).rejects.toEqual({ statusCode: 400, message: 'habit not found' })

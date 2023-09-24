@@ -28,7 +28,6 @@ describe('Delete a habit', () => {
     const habit = {
       id: 'habitId',
       name: 'updated',
-      completed: true
     }
     await expect(deleteHabitUseCase.execute(habit.id)).rejects.toBeInstanceOf(AppError);
     await expect(deleteHabitUseCase.execute(habit.id)).rejects.toEqual({ statusCode: 400, message: 'habit not found' })

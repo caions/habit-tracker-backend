@@ -12,13 +12,12 @@ describe('Store a habit', () => {
     createHabitUseCase = new CreateHabitUseCase(memoryHabitRepository)
   })
 
-  it('should be able to store a habit with completed false', async () => {
+  it('should be able to store a habit', async () => {
     await createHabitUseCase.execute('run')
     const habits = memoryHabitRepository.habits
     const firstHabit = habits.entries().next().value[1]
     expect(firstHabit).toHaveProperty('id')
     expect(firstHabit.name).toBe('run')
-    expect(firstHabit.completed).toBeFalsy()
   })
 
   it('should NOT be  able to store a habit with empty name', async () => {

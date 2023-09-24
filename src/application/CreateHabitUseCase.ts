@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import { HabitRepositoryProtocol } from "../domain/repositories/HabitRepositoryProtocol";
 import { AppError } from '../shared/errors/AppError';
+import { Habit } from '../domain/entities/Habit';
 
 export class CreateHabitUseCase {
 
@@ -9,11 +10,11 @@ export class CreateHabitUseCase {
 
   async execute(name: string) {
     const habitId = randomUUID()
-    const habit = {
+    const habit: Habit = {
       id: habitId,
-      name,
-      completed: false
+      name
     }
+
     if (habit.name === "") {
       throw new AppError('empty name are not allowed')
     }
@@ -22,5 +23,6 @@ export class CreateHabitUseCase {
       throw new AppError('habit already exist')
     }
     await this.habitRepository.create(habit)
+    return habit
   }
 }

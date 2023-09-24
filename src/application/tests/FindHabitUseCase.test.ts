@@ -26,7 +26,6 @@ describe('Find a habit', () => {
     await findHabitUseCase.execute(habitId)
     const firstHabit = habits.entries().next().value[1]
     expect(firstHabit.name).toBe('habit')
-    expect(firstHabit.completed).toBeFalsy()
   })
 
   it('should be able to find a updated habit', async () => {
@@ -37,21 +36,18 @@ describe('Find a habit', () => {
     const habit = {
       id: habitId,
       name: 'updated',
-      completed: true
     }
 
     await updateHabitUseCase.execute(habit)
     await findHabitUseCase.execute(habitId)
     const firstHabit = habits.entries().next().value[1]
     expect(firstHabit.name).toBe('updated')
-    expect(firstHabit.completed).toBeTruthy()
   })
 
   it('should be throw a error when habit not exist', async () => {
     const habit = {
       id: 'habitId',
       name: 'updated',
-      completed: true
     }
     await expect(findHabitUseCase.execute(habit.id)).rejects.toBeInstanceOf(AppError);
     await expect(findHabitUseCase.execute(habit.id)).rejects.toEqual({ statusCode: 400, message: 'habit not found' })

@@ -2,7 +2,7 @@ import { Habit } from '../../../domain/entities/Habit'
 import { HabitRepositoryProtocol } from '../../../domain/repositories/HabitRepositoryProtocol'
 
 export class MemoryHabitRepository implements HabitRepositoryProtocol {
-  habits = new Map()
+  habits = new Map<string, Habit>()
 
   constructor() {
   }
@@ -29,7 +29,6 @@ export class MemoryHabitRepository implements HabitRepositoryProtocol {
         return habit;
       }
     }
-    return null;
   }
 
   async delete(id: string) {
