@@ -1,9 +1,9 @@
 import express from 'express'
 import 'dotenv/config'
-const app = express()
 import 'express-async-errors'
 import { routes } from './web/routes'
 import { errorHandler } from './web/middlewares/errorHandler'
+const app = express()
 const PORT = process.env.PORT || 8000
 
 app.use(express.json());
