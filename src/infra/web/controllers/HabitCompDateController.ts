@@ -7,20 +7,22 @@ import { HabitCompletionDateRepositoryProtocol } from "../../../domain/repositor
 export class HabitCompDateController {
   constructor(
     private habitRepository: HabitRepositoryProtocol,
-    private HabitCompDateRepositoryProtocol: HabitCompletionDateRepositoryProtocol,
-
+    private habitCompDateRepository: HabitCompletionDateRepositoryProtocol
   ) { }
 
   index = async (request: Request, response: Response): Promise<void> => {
-    const listHabitUseCase = new ListHabitCompletionDateUseCase(this.HabitCompDateRepositoryProtocol);
+    const listHabitUseCase = new ListHabitCompletionDateUseCase(this.habitCompDateRepository);
     const result = await listHabitUseCase.execute();
     response.json(result);
   }
 
   complete = async (request: Request, response: Response): Promise<void> => {
-    const { habitId } = request.body
-    const createHabitUseCase = new HabitCompletionDateUseCase(this.habitRepository, this.HabitCompDateRepositoryProtocol)
-    await createHabitUseCase.execute(habitId)
+    const { habitId, completedDate } = request.body
+    const createHabitUseCase = new HabitCompletionDateUseCase(
+      this.habitRepository,
+      this.habitCompDateRepository
+    )
+    await createHabitUseCase.execute(habitId, completedDate)
     response.json()
   }
 }

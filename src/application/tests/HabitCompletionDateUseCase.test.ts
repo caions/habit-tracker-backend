@@ -12,6 +12,7 @@ describe('Complete a Habit', () => {
   let createHabitUseCase: CreateHabitUseCase
   let habitCompletionDateUseCase: HabitCompletionDateUseCase
   let listHabitCompletionDateUseCase: ListHabitCompletionDateUseCase
+  const completedDate = new Date().toISOString()
   jest
     .useFakeTimers()
     .setSystemTime(new Date('2020-01-01'));
@@ -21,27 +22,39 @@ describe('Complete a Habit', () => {
     memoryHabitCompletionDateRepository = new MemoryHabitCompletionDateRepository()
     createHabitUseCase = new CreateHabitUseCase(memoryHabitRepository)
     listHabitCompletionDateUseCase = new ListHabitCompletionDateUseCase(memoryHabitCompletionDateRepository)
-    habitCompletionDateUseCase = new HabitCompletionDateUseCase(memoryHabitRepository, memoryHabitCompletionDateRepository)
+    habitCompletionDateUseCase = new HabitCompletionDateUseCase(
+      memoryHabitRepository,
+      memoryHabitCompletionDateRepository
+    )
   })
 
   it('should be able to complete a habit with completed date', async () => {
     const createdHabit = await createHabitUseCase.execute('run')
-    const habitCompletionDate = await habitCompletionDateUseCase.execute(createdHabit.id)
+    const habitCompletionDate = await habitCompletionDateUseCase.execute(createdHabit.id, completedDate)
     expect(habitCompletionDate?.habitId).toBe(createdHabit.id)
-    expect(habitCompletionDate).toHaveProperty('completedDate')
+    expect(habitCompletionDate?.completedDate).toBe(completedDate)
   })
 
   it('should be able to uncomplete a habit', async () => {
     const createdHabit = await createHabitUseCase.execute('run')
-    await habitCompletionDateUseCase.execute(createdHabit.id)
-    await habitCompletionDateUseCase.execute(createdHabit.id)
+    await habitCompletionDateUseCase.execute(createdHabit.id, completedDate)
+    await habitCompletionDateUseCase.execute(createdHabit.id, completedDate)
     const allHabitCompletionDates = await listHabitCompletionDateUseCase.execute()
     expect(allHabitCompletionDates).toHaveLength(0)
   })
 
+  it('should be able to complete the same habit with differents dates', async () => {
+    const createdHabit = await createHabitUseCase.execute('run')
+    await habitCompletionDateUseCase.execute(createdHabit.id, completedDate)
+    await habitCompletionDateUseCase.execute(createdHabit.id, '2000-02-01T00:00:00.000Z')
+    const allHabitCompletionDates = await listHabitCompletionDateUseCase.execute()
+    expect(allHabitCompletionDates).toHaveLength(2)
+  })
+
   it('should NOT be able to complete a habit that not exist', async () => {
-    await expect(habitCompletionDateUseCase.execute('9586c468-f794-4234-9429-0c3da965fd90')).rejects.toBeInstanceOf(AppError);
-    await expect(habitCompletionDateUseCase.execute('9586c468-f794-4234-9429-0c3da965fd90'))
+    const habitId = '9586c468-f794-4234-9429-0c3da965fd90'
+    await expect(habitCompletionDateUseCase.execute(habitId, completedDate)).rejects.toBeInstanceOf(AppError);
+    await expect(habitCompletionDateUseCase.execute(habitId, completedDate))
       .rejects.toEqual({ statusCode: 400, message: 'habit not found' })
   })
 });

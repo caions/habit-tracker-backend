@@ -7,7 +7,10 @@ const habitCompDateRouter = express.Router();
 
 const postgresHabitRepository = new PostgresHabitRepository();
 const pgHabitCompDateRepository = new PgHabitCompDateRepository();
-const habitController = new HabitCompDateController(postgresHabitRepository, pgHabitCompDateRepository)
+const habitController = new HabitCompDateController(
+  postgresHabitRepository,
+  pgHabitCompDateRepository
+)
 
 habitCompDateRouter.get('/', habitController.index)
 habitCompDateRouter.post('/', habitController.complete)

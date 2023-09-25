@@ -6,7 +6,8 @@ export class PgHabitCompDateRepository implements HabitCompletionDateRepositoryP
   constructor() { }
 
   async create(habitCompDate: HabitCompletionDate) {
-    await pool.query('INSERT INTO habit_completion_dates(id, completed_id, completed_date) VALUES($1, $2, NOW())', [habitCompDate.id, habitCompDate.habitId]);
+    await pool.query('INSERT INTO habit_completion_dates(id, completed_id, completed_date) VALUES($1, $2, $3)',
+      [habitCompDate.id, habitCompDate.habitId, habitCompDate.completedDate]);
     return habitCompDate
   };
 
@@ -15,12 +16,12 @@ export class PgHabitCompDateRepository implements HabitCompletionDateRepositoryP
     return result.rows
   };
 
-  async findByHabitId(habitId: string) {
-    const [habit] = (await pool.query<HabitCompletionDate>('SELECT * FROM habit_completion_dates WHERE completed_id = $1', [habitId])).rows;
-    return habit
+  async findByHabitIdAndDate(habitId: string, completedDate: string) {
+    const [habit] = (await pool.query('SELECT * FROM habit_completion_dates WHERE completed_id = $1 AND completed_date = $2', [habitId, completedDate])).rows;
+    return { ...habit, completedId: habit?.completed_id, completedDate: habit?.completed_date }
   };
 
-  async delete(habitId: string) {
-    await pool.query('DELETE FROM habit_completion_dates WHERE completed_id = $1', [habitId])
+  async delete(habitId: string, completedDate: string) {
+    await pool.query('DELETE FROM habit_completion_dates WHERE completed_id = $1 AND completed_date = $2', [habitId, completedDate])
   }
 }

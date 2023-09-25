@@ -2,24 +2,24 @@ import { HabitCompletionDate } from '../../../domain/entities/HabitCompletionDat
 import { HabitCompletionDateRepositoryProtocol } from '../../../domain/repositories/HabitCompletionDateRepositoryProtocol'
 
 export class MemoryHabitCompletionDateRepository implements HabitCompletionDateRepositoryProtocol {
-  habitCompletionDates = new Map<string, HabitCompletionDate>()
+  habitCompletionDates: HabitCompletionDate[] = []
 
   constructor() { }
 
   async create(habitCompletionDate: HabitCompletionDate) {
-    this.habitCompletionDates.set(habitCompletionDate.habitId, { ...habitCompletionDate, completedDate: new Date().toISOString() })
-    return this.habitCompletionDates.get(habitCompletionDate.habitId) as HabitCompletionDate
+    this.habitCompletionDates.push(habitCompletionDate)
+    return habitCompletionDate
   }
 
-  async findByHabitId(habitId: string) {
-    return this.habitCompletionDates.get(habitId)
+  async findByHabitIdAndDate(habitId: string, completedDate: string) {
+    return this.habitCompletionDates.find(habit => habit.habitId === habitId && habit.completedDate === completedDate)
   }
 
   async list() {
-    return Array.from(this.habitCompletionDates.values())
+    return this.habitCompletionDates
   }
 
-  async delete(habitId: string) {
-    this.habitCompletionDates.delete(habitId)
+  async delete(habitId: string, completedDate: string) {
+    this.habitCompletionDates = this.habitCompletionDates.filter(habit => habit.habitId !== habitId && habit.completedDate === completedDate)
   }
 }
