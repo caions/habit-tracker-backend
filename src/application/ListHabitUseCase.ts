@@ -1,9 +1,9 @@
-import { HabitRepositoryProtocol } from "../domain/repositories/HabitRepositoryProtocol";
+import { HabitRepositoryProtocol } from '../domain/repositories/HabitRepositoryProtocol';
 
 export class ListHabitUseCase {
-  constructor(private habitRepository: HabitRepositoryProtocol) { }
+  constructor(private habitRepository: HabitRepositoryProtocol) {}
 
   async execute() {
-    return await this.habitRepository.list()
+    return await this.habitRepository.list();
   }
 }

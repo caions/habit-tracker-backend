@@ -4,12 +4,12 @@ import { PostgresHabitRepository } from '../../../adapters/database/postgres/Pos
 const habitRouter = express.Router();
 
 const postgresHabitRepository = new PostgresHabitRepository();
-const habitController = new HabitController(postgresHabitRepository)
+const habitController = new HabitController(postgresHabitRepository);
 
-habitRouter.get('/', habitController.index)
-habitRouter.get('/:id', habitController.show)
-habitRouter.post('/', habitController.create)
-habitRouter.put('/', habitController.update)
-habitRouter.delete('/', habitController.destroy)
+habitRouter.get('/', habitController.index);
+habitRouter.get('/:id', habitController.show);
+habitRouter.post('/', habitController.create);
+habitRouter.put('/', habitController.update);
+habitRouter.delete('/', habitController.destroy);
 
-export { habitRouter }
+export { habitRouter };

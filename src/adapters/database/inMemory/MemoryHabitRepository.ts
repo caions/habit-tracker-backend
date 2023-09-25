@@ -1,26 +1,25 @@
-import { Habit } from '../../../domain/entities/Habit'
-import { HabitRepositoryProtocol } from '../../../domain/repositories/HabitRepositoryProtocol'
+import { Habit } from '../../../domain/entities/Habit';
+import { HabitRepositoryProtocol } from '../../../domain/repositories/HabitRepositoryProtocol';
 
 export class MemoryHabitRepository implements HabitRepositoryProtocol {
-  habits = new Map<string, Habit>()
+  habits = new Map<string, Habit>();
 
-  constructor() {
-  }
+  constructor() {}
 
   async create(habit: Habit) {
-    this.habits.set(habit.id, habit)
+    this.habits.set(habit.id, habit);
   }
 
   async list() {
-    return Array.from(this.habits.values())
+    return Array.from(this.habits.values());
   }
 
   async update(habit: Habit) {
-    this.habits.set(habit.id, habit)
+    this.habits.set(habit.id, habit);
   }
 
   async findById(id: string) {
-    return this.habits.get(id)
+    return this.habits.get(id);
   }
 
   async findByName(name: string) {
@@ -32,6 +31,6 @@ export class MemoryHabitRepository implements HabitRepositoryProtocol {
   }
 
   async delete(id: string) {
-    this.habits.delete(id)
+    this.habits.delete(id);
   }
 }

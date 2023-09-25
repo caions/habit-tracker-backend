@@ -9,10 +9,10 @@ const postgresHabitRepository = new PostgresHabitRepository();
 const pgHabitCompDateRepository = new PgHabitCompDateRepository();
 const habitController = new HabitCompDateController(
   postgresHabitRepository,
-  pgHabitCompDateRepository
-)
+  pgHabitCompDateRepository,
+);
 
-habitCompDateRouter.get('/', habitController.index)
-habitCompDateRouter.post('/', habitController.complete)
+habitCompDateRouter.get('/', habitController.index);
+habitCompDateRouter.post('/', habitController.complete);
 
-export { habitCompDateRouter }
+export { habitCompDateRouter };
