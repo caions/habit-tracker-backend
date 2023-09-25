@@ -6,7 +6,11 @@
   "scripts": {
     "start": "ts-node-dev --transpile-only --respawn --quiet src/infra/server.ts",
     "pg-migrations": "ts-node-dev --transpile-only --quiet src/infra/db/runMigrations.ts",
-    "test": "jest"
+    "test": "jest",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write .",
+    "lint:check": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "keywords": [],
   "author": "Caio Nascimento",
