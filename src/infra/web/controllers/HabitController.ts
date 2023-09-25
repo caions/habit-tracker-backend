@@ -25,8 +25,8 @@ export class HabitController {
   create = async (request: Request, response: Response): Promise<void> => {
     const { name } = request.body
     const createHabitUseCase = new CreateHabitUseCase(this.habitRepository)
-    await createHabitUseCase.execute(name)
-    response.json()
+    const habit = await createHabitUseCase.execute(name)
+    response.json(habit)
   }
 
   update = async (request: Request, response: Response): Promise<void> => {

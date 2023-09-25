@@ -7,10 +7,11 @@ import type { Config } from "jest";
 
 const config: Config = {
 	clearMocks: true,
-	collectCoverage: true,
+	//collectCoverage: true,
 	coverageDirectory: "coverage",
 	coverageProvider: "v8",
 	preset: "ts-jest",
+	forceExit: true
 };
 
 export default config;

@@ -20,12 +20,12 @@ describe('Store a habit', () => {
     expect(firstHabit.name).toBe('run')
   })
 
-  it('should NOT be  able to store a habit with empty name', async () => {
+  it('should NOT be able to store a habit with empty name', async () => {
     await expect(createHabitUseCase.execute('')).rejects.toBeInstanceOf(AppError)
     await expect(createHabitUseCase.execute('')).rejects.toEqual({ statusCode: 400, message: 'empty name are not allowed' })
   })
 
-  it('should NOT be  able to store a habit with duplicated name', async () => {
+  it('should NOT be able to store a habit with duplicated name', async () => {
     await createHabitUseCase.execute('run')
     await expect(createHabitUseCase.execute('run')).rejects.toBeInstanceOf(AppError);
     await expect(createHabitUseCase.execute('run')).rejects.toEqual({ statusCode: 400, message: 'habit already exist' })
