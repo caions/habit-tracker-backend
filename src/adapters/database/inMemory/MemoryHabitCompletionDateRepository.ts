@@ -20,6 +20,6 @@ export class MemoryHabitCompletionDateRepository implements HabitCompletionDateR
   }
 
   async delete(habitId: string, completedDate: string) {
-    this.habitCompletionDates = this.habitCompletionDates.filter(habit => habit.habitId !== habitId && habit.completedDate === completedDate)
+    this.habitCompletionDates = this.habitCompletionDates.filter(habit => !(habit.habitId === habitId && habit.completedDate === completedDate))
   }
 }
