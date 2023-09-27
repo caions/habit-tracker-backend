@@ -15,3 +15,5 @@ app.get('/', (_, res: Response) => res.json('api version: ' + version));
 app.listen(PORT, () => {
   executeMigrations(), console.log(`server runing on localhost:${PORT}`);
 });
+
+export default app;
