@@ -1,8 +1,11 @@
 name: Continous Integration
 on:
+  pull_request:
+    branches:
+      - 'dev'
   push:
     branches:
-      - '*'
+      - 'fix/*'
 jobs:
   ci:
     name: CI
