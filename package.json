@@ -10,7 +10,8 @@
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
     "lint:check": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "versel-build": "echo hello"
   },
   "keywords": [],
   "author": "Caio Nascimento",
