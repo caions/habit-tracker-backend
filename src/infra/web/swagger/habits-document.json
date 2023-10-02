@@ -1,9 +1,9 @@
 {
   "swagger": "2.0",
   "info": {
+    "version": "1.0.1",
     "title": "Habit Tracker API",
-    "description": "Api to manage habits",
-    "version": "1.0.0"
+    "description": "Api to manage habits"
   },
   "host": "localhost:8000",
   "basePath": "/",
@@ -14,6 +14,9 @@
   "paths": {
     "/habits/": {
       "get": {
+        "tags": [
+          "Habits"
+        ],
         "description": "",
         "responses": {
           "default": {
@@ -22,6 +25,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Habits"
+        ],
         "description": "",
         "parameters": [
           {
@@ -29,16 +35,7 @@
             "in": "body",
             "description": "create a habit",
             "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "example": "new habit name"
-                }
-              },
-              "required": [
-                "name"
-              ]
+              "$ref": "#/definitions/HabitBodyName"
             }
           }
         ],
@@ -49,6 +46,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Habits"
+        ],
         "description": "",
         "parameters": [
           {
@@ -62,16 +62,7 @@
             "in": "body",
             "description": "update a habit",
             "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "example": "update habit name"
-                }
-              },
-              "required": [
-                "name"
-              ]
+              "$ref": "#/definitions/HabitBodyName"
             }
           }
         ],
@@ -82,6 +73,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Habits"
+        ],
         "description": "",
         "parameters": [
           {
@@ -89,16 +83,7 @@
             "in": "body",
             "description": "habit uuid",
             "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "example": "new habit name"
-                }
-              },
-              "required": [
-                "id"
-              ]
+              "$ref": "#/definitions/HabitBodyId"
             }
           }
         ],
@@ -111,6 +96,9 @@
     },
     "/habits/{id}": {
       "get": {
+        "tags": [
+          "Habits"
+        ],
         "description": "",
         "parameters": [
           {
@@ -130,6 +118,9 @@
     },
     "/habitsCompDate/": {
       "get": {
+        "tags": [
+          "Habits Completion Date"
+        ],
         "description": "",
         "responses": {
           "default": {
@@ -138,6 +129,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Habits Completion Date"
+        ],
         "description": "",
         "parameters": [
           {
@@ -145,21 +139,7 @@
             "in": "body",
             "description": "complete/uncomplete a habit",
             "schema": {
-              "type": "object",
-              "properties": {
-                "habitId": {
-                  "type": "string",
-                  "example": "habit uuid"
-                },
-                "completedDate": {
-                  "type": "string",
-                  "example": "2023-09-26T00:00:00.000Z"
-                }
-              },
-              "required": [
-                "habitId",
-                "completedDate"
-              ]
+              "$ref": "#/definitions/CompleteHabitBody"
             }
           }
         ],
@@ -169,6 +149,49 @@
           }
         }
       }
+    }
+  },
+  "definitions": {
+    "HabitBodyId": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "habit uuid"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "HabitBodyName": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "habit name"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "CompleteHabitBody": {
+      "type": "object",
+      "properties": {
+        "habitId": {
+          "type": "string",
+          "example": "habit uuid"
+        },
+        "completedDate": {
+          "type": "string",
+          "example": "2023-09-26T00:00:00.000Z"
+        }
+      },
+      "required": [
+        "habitId",
+        "completedDate"
+      ]
     }
   }
 }

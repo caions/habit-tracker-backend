@@ -12,16 +12,18 @@ const habitController = new HabitCompDateController(
   pgHabitCompDateRepository,
 );
 
-habitCompDateRouter.get('/', habitController.index);
+habitCompDateRouter.get(
+  '/',
+  // #swagger.tags = ['Habits Completion Date']
+  habitController.index,
+);
 habitCompDateRouter.post(
   '/',
+  // #swagger.tags = ['Habits Completion Date']
   /*  #swagger.parameters['obj'] = {
     in: 'body',
     description: 'complete/uncomplete a habit',
-    schema: {
-        $habitId: 'habit uuid',
-        $completedDate: '2023-09-26T00:00:00.000Z'
-    }
+    schema: { $ref: '#/definitions/CompleteHabitBody' }
   } */
   habitController.complete,
 );
