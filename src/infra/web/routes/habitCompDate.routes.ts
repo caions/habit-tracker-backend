@@ -12,7 +12,20 @@ const habitController = new HabitCompDateController(
   pgHabitCompDateRepository,
 );
 
-habitCompDateRouter.get('/', habitController.index);
-habitCompDateRouter.post('/', habitController.complete);
+habitCompDateRouter.get(
+  '/',
+  // #swagger.tags = ['Habits Completion Date']
+  habitController.index,
+);
+habitCompDateRouter.post(
+  '/',
+  // #swagger.tags = ['Habits Completion Date']
+  /*  #swagger.parameters['obj'] = {
+    in: 'body',
+    description: 'complete/uncomplete a habit',
+    schema: { $ref: '#/definitions/CompleteHabitBody' }
+  } */
+  habitController.complete,
+);
 
 export { habitCompDateRouter };
