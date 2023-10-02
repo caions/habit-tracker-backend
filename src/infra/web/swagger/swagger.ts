@@ -30,7 +30,7 @@ const doc = {
   },
 };
 
-const outputFile = 'src/infra/web/swagger/habits-document.json';
+const outputFile = 'habits-document.json';
 const endpointsFiles = ['src/infra/web/routes/index.ts'];
 
 swaggerAutogen()(outputFile, endpointsFiles, doc);

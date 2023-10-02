@@ -1,7 +1,7 @@
 import express, { Response } from 'express';
 import { version } from '../../package.json';
 import swaggerUi from 'swagger-ui-express';
-import swaggerFile from './web/swagger/habits-document.json';
+import swaggerFile from '../../habits-document.json';
 import 'dotenv/config';
 import 'express-async-errors';
 import cors from 'cors';
