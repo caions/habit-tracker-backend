@@ -9,14 +9,14 @@ const host = isProduction
 
 const doc = {
   info: {
-    title: 'My API',
-    description: 'Description',
+    title: 'Habit Tracker API',
+    description: 'Api to manage habits',
   },
   host,
   schemes: ['http', 'https'],
 };
 
-const outputFile = 'src/infra/web/swagger/output.json';
+const outputFile = 'src/infra/web/swagger/habits-document.json';
 const endpointsFiles = ['src/infra/web/routes/index.ts'];
 
 swaggerAutogen()(outputFile, endpointsFiles, doc);
