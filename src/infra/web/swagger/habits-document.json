@@ -23,6 +23,25 @@
       },
       "post": {
         "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "create a habit",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "new habit name"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -31,6 +50,31 @@
       },
       "put": {
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "habit id",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "update a habit",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "update habit name"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -39,6 +83,25 @@
       },
       "delete": {
         "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "habit uuid",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "new habit name"
+                }
+              },
+              "required": [
+                "id"
+              ]
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -49,6 +112,15 @@
     "/habits/{id}": {
       "get": {
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "habit id"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -67,6 +139,30 @@
       },
       "post": {
         "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "complete/uncomplete a habit",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "habitId": {
+                  "type": "string",
+                  "example": "habit uuid"
+                },
+                "completedDate": {
+                  "type": "string",
+                  "example": "2023-09-26T00:00:00.000Z"
+                }
+              },
+              "required": [
+                "habitId",
+                "completedDate"
+              ]
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
