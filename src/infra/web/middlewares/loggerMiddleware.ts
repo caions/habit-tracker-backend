@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { logger } from '../../../adapters/logger/WinstonLogger';
+import { logger } from '../../../adapters/logger';
 
 export function loggerMiddleware(
   req: Request,

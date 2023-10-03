@@ -9,7 +9,7 @@ import { routes } from './web/routes';
 import { errorHandler } from './web/middlewares/errorHandler';
 import { loggerMiddleware } from './web/middlewares/loggerMiddleware';
 import { executeMigrations } from './db/runMigrations';
-import { logger } from '../adapters/logger/WinstonLogger';
+import { logger } from '../adapters/logger';
 const app = express();
 const PORT = process.env.PORT || 8000;
 
