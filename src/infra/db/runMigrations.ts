@@ -1,5 +1,6 @@
 import fs from 'fs';
 import pool from './connection';
+import { logger } from '../../adapters/logger';
 
 const executeMigrations = () => {
   const sqlScript = fs.readFileSync(
@@ -9,9 +10,9 @@ const executeMigrations = () => {
 
   pool.query(sqlScript, err => {
     if (err) {
-      console.error('error executing migrations:', err);
+      logger.error('error executing migrations:' + err);
     } else {
-      console.log('migrations executed with success');
+      logger.info('migrations executed with success');
     }
   });
 };

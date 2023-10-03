@@ -2,11 +2,11 @@ import 'dotenv/config';
 import swaggerAutogen from 'swagger-autogen';
 import { version } from '../../../../package.json';
 
-const isProduction = process.env.ENVIRONMENT === 'PROD';
+const isDevelopoment = process.env.NODE_ENV === 'development';
 
-const host = isProduction
-  ? 'habit-tracker-backend.vercel.app'
-  : 'localhost:8000';
+const host = isDevelopoment
+  ? 'localhost:8000'
+  : 'habit-tracker-backend.vercel.app';
 
 const doc = {
   info: {
