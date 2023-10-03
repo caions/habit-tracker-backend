@@ -5,8 +5,6 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run doc & env NODE_ENV=development ts-node-dev --transpile-only --respawn --quiet src/infra/server.ts",
-    "start:homolog": "npm run doc & env NODE_ENV=homolog ts-node-dev --transpile-only --respawn --quiet src/infra/server.ts",
-    "start:production": "npm run doc & env NODE_ENV=production ts-node-dev --transpile-only --respawn --quiet src/infra/server.ts",
     "pg-migrations": "ts-node-dev --transpile-only --quiet src/infra/db/runMigrations.ts",
     "test": "jest",
     "format:check": "prettier --check .",
