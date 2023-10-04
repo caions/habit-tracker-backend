@@ -3,13 +3,21 @@
 This is the repository for the backend of the Habit Tracker application, a Node.js API for tracking daily habits.
 This API was developed using Node.js and PostgreSQL as the database, and it follows the principles of Hexagon Architecture.
 
-## 🚀 Instalation
+## Instalation
 
 To install the project dependencies, run the following command:
 
 ```
 npm install
 ```
+
+## 🚀 Running the application
+
+```
+npm start
+```
+
+The server will run on http://localhost:8000
 
 Additionally, you need to create a PostgreSQL database named "habit-tracker" before starting the server.
 
