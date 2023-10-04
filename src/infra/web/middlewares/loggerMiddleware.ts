@@ -9,8 +9,6 @@ export function loggerMiddleware(
   const isDevelopoment = process.env.NODE_ENV === 'development';
   if (!isDevelopoment) {
     logger.info({
-      method: req.method.toUpperCase(),
-      route: req.url,
       body: req.body,
       query: req.query,
     });
