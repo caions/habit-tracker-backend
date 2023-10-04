@@ -18,7 +18,14 @@ app.use(express.json());
 app.use(loggerMiddleware);
 app.use(routes);
 app.use(errorHandler);
-app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+const CSS_URL =
+  'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css';
+
+app.use(
+  '/doc',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerFile, { customCssUrl: CSS_URL }),
+);
 app.get('/', (_, res: Response) => res.json('api version: ' + version));
 app.listen(PORT, () => {
   executeMigrations(), logger.info(`server running on localhost:${PORT}`);
