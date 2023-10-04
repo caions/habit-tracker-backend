@@ -1,12 +1,5 @@
-import 'dotenv/config';
 import swaggerAutogen from 'swagger-autogen';
 import { version } from '../../../../package.json';
-
-const isDevelopoment = process.env.NODE_ENV === 'development';
-
-const host = isDevelopoment
-  ? 'localhost:8000'
-  : 'habit-tracker-backend.vercel.app';
 
 const doc = {
   info: {
@@ -14,8 +7,8 @@ const doc = {
     title: 'Habit Tracker API',
     description: 'Api to manage habits',
   },
-  host,
-  schemes: ['http', 'https'],
+  host: 'localhost:8000',
+  schemes: ['http'],
   definitions: {
     HabitBodyId: {
       $id: 'habit uuid',
