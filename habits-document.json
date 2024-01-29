@@ -7,15 +7,11 @@
   },
   "host": "localhost:8000",
   "basePath": "/",
-  "schemes": [
-    "http"
-  ],
+  "schemes": ["http"],
   "paths": {
     "/habits/": {
       "get": {
-        "tags": [
-          "Habits"
-        ],
+        "tags": ["Habits"],
         "description": "",
         "responses": {
           "default": {
@@ -24,9 +20,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Habits"
-        ],
+        "tags": ["Habits"],
         "description": "",
         "parameters": [
           {
@@ -45,9 +39,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Habits"
-        ],
+        "tags": ["Habits"],
         "description": "",
         "parameters": [
           {
@@ -72,9 +64,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Habits"
-        ],
+        "tags": ["Habits"],
         "description": "",
         "parameters": [
           {
@@ -95,9 +85,7 @@
     },
     "/habits/{id}": {
       "get": {
-        "tags": [
-          "Habits"
-        ],
+        "tags": ["Habits"],
         "description": "",
         "parameters": [
           {
@@ -117,9 +105,7 @@
     },
     "/habitsCompDate/": {
       "get": {
-        "tags": [
-          "Habits Completion Date"
-        ],
+        "tags": ["Habits Completion Date"],
         "description": "",
         "responses": {
           "default": {
@@ -128,9 +114,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Habits Completion Date"
-        ],
+        "tags": ["Habits Completion Date"],
         "description": "",
         "parameters": [
           {
@@ -159,9 +143,7 @@
           "example": "habit uuid"
         }
       },
-      "required": [
-        "id"
-      ]
+      "required": ["id"]
     },
     "HabitBodyName": {
       "type": "object",
@@ -171,9 +153,7 @@
           "example": "habit name"
         }
       },
-      "required": [
-        "name"
-      ]
+      "required": ["name"]
     },
     "CompleteHabitBody": {
       "type": "object",
@@ -187,10 +167,7 @@
           "example": "2023-09-26T00:00:00.000Z"
         }
       },
-      "required": [
-        "habitId",
-        "completedDate"
-      ]
+      "required": ["habitId", "completedDate"]
     }
   }
 }
