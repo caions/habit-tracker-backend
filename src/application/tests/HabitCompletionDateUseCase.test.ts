@@ -69,4 +69,14 @@ describe('Complete a Habit', () => {
       habitCompletionDateUseCase.execute(habitId, completedDate),
     ).rejects.toEqual({ statusCode: 400, message: 'habit not found' });
   });
+
+  it('should be possible to uncomplete a habit regardless of the time.', async () => {
+    const createdHabit = await createHabitUseCase.execute('run');
+    const habitCompletionDate = await habitCompletionDateUseCase.execute(
+      createdHabit.id,
+      completedDate,
+    );
+    expect(habitCompletionDate?.habitId).toBe(createdHabit.id);
+    expect(habitCompletionDate?.completedDate).toBe(completedDate);
+  });
 });
