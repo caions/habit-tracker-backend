@@ -79,4 +79,18 @@ describe('Complete a Habit', () => {
     expect(habitCompletionDate?.habitId).toBe(createdHabit.id);
     expect(habitCompletionDate?.completedDate).toBe(completedDate);
   });
+
+  it('should not be possible to complete with an invalid date format.', async () => {
+    const createdHabit = await createHabitUseCase.execute('verr');
+    console.log(createdHabit.id);
+    await expect(
+      habitCompletionDateUseCase.execute(
+        createdHabit.id,
+        '2024-02-11T01:00:00',
+      ),
+    ).rejects.toEqual({
+      statusCode: 400,
+      message: 'completedDate invalid utc format',
+    });
+  });
 });

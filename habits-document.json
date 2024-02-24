@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.1.8",
+    "version": "1.2.1",
     "title": "Habit Tracker API",
     "description": "Api to manage habits"
   },

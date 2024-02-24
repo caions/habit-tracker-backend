@@ -4,6 +4,7 @@ import { HabitRepositoryProtocol } from '../domain/repositories/HabitRepositoryP
 import { AppError } from '../shared/errors/AppError';
 import { HabitCompletionDate } from '../domain/entities/HabitCompletionDate';
 import { isSameDate } from '../shared/utils/isSameDate';
+import { validUtcDate } from '../shared/utils/utcDateValidation';
 
 export class HabitCompletionDateUseCase {
   constructor(
@@ -18,6 +19,11 @@ export class HabitCompletionDateUseCase {
       habitId,
       completedDate,
     };
+
+    if (!validUtcDate(completedDate)) {
+      throw new AppError('completedDate invalid utc format');
+    }
+
     const findHabit = await this.habitRepository.findById(habitId);
 
     if (!findHabit) {
