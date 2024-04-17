@@ -13,7 +13,6 @@ describe('Complete a Habit', () => {
   let habitCompletionDateUseCase: HabitCompletionDateUseCase;
   let listHabitCompletionDateUseCase: ListHabitCompletionDateUseCase;
   const completedDate = new Date().toISOString();
-  jest.useFakeTimers().setSystemTime(new Date('2020-01-01'));
 
   beforeEach(() => {
     memoryHabitRepository = new MemoryHabitRepository();
@@ -81,8 +80,7 @@ describe('Complete a Habit', () => {
   });
 
   it('should not be possible to complete with an invalid date format.', async () => {
-    const createdHabit = await createHabitUseCase.execute('verr');
-    console.log(createdHabit.id);
+    const createdHabit = await createHabitUseCase.execute('ver');
     await expect(
       habitCompletionDateUseCase.execute(
         createdHabit.id,

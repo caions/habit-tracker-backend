@@ -10,10 +10,10 @@ const memoryHabitRepository = new MemoryHabitRepository();
 const habitController = new HabitController(memoryHabitRepository);
 
 habitRouter.get('/', habitController.index);
-habitRouter.get('/:id', habitController.show);
+habitRouter.get('/:habitId', habitController.show);
 habitRouter.post('/', habitController.create);
-habitRouter.put('/', habitController.update);
-habitRouter.delete('/', habitController.destroy);
+habitRouter.put('/:habitId', habitController.update);
+habitRouter.delete('/:habitId', habitController.destroy);
 describe('Habits Controllers', () => {
   beforeAll(() => {
     app.use(express.json());
@@ -44,14 +44,9 @@ describe('Habits Controllers', () => {
     const habit = await request(app).post('/').send({
       name: 'jumping',
     });
-    const response = await request(app)
-      .put('/')
-      .query({
-        id: habit.body.id,
-      })
-      .send({
-        name: 'thinking',
-      });
+    const response = await request(app).put(`/${habit.body.id}`).send({
+      name: 'thinking',
+    });
     expect(response.status).toBe(201);
   });
 
@@ -59,9 +54,7 @@ describe('Habits Controllers', () => {
     const habit = await request(app).post('/').send({
       name: 'hiking',
     });
-    const response = await request(app).delete('/').send({
-      id: habit.body.id,
-    });
+    const response = await request(app).delete(`/${habit.body.id}`);
     expect(response.status).toBe(200);
   });
 
@@ -99,10 +92,7 @@ describe('Habits Controllers', () => {
 
   it('should NOT be able to update a habit that not exist', async () => {
     const response = await request(app)
-      .put('/')
-      .query({
-        id: '672c2ae2-c4fd-443d-8c2a-4bb2cdb179d8',
-      })
+      .put(`/672c2ae2-c4fd-443d-8c2a-4bb2cdb179d8`)
       .send({
         name: 'thinking',
       });
@@ -111,9 +101,9 @@ describe('Habits Controllers', () => {
   });
 
   it('should NOT be able to delete a habit that not exist', async () => {
-    const response = await request(app)
-      .delete('/')
-      .send({ id: '672c2ae2-c4fd-443d-8c2a-4bb2cdb179d8' });
+    const response = await request(app).delete(
+      `/672c2ae2-c4fd-443d-8c2a-4bb2cdb179d8`,
+    );
     expect(response.status).toBe(400);
     expect(response.body).toBe('habit not found');
   });
