@@ -12,9 +12,9 @@ habitRouter.get(
   habitController.index,
 );
 habitRouter.get(
-  '/:id',
+  '/:habitId',
   // #swagger.tags = ['Habits']
-  //  #swagger.parameters['id'] = { description: 'habit id' }
+  //  #swagger.parameters['habitId'] = { description: 'habit habitId' }
   habitController.show,
 );
 habitRouter.post(
@@ -28,9 +28,9 @@ habitRouter.post(
   habitController.create,
 );
 habitRouter.put(
-  '/',
+  '/:habitId',
   // #swagger.tags = ['Habits']
-  //  #swagger.parameters['id'] = { description: 'habit id' }
+  //  #swagger.parameters['habitId'] = { description: 'habit habitId' }
   /*  #swagger.parameters['obj'] = {
         in: 'body',
         description: 'update a habit',
@@ -39,13 +39,9 @@ habitRouter.put(
   habitController.update,
 );
 habitRouter.delete(
-  '/',
+  '/:habitId',
   // #swagger.tags = ['Habits']
-  /*  #swagger.parameters['obj'] = {
-        in: 'body',
-        description: 'habit uuid',
-        schema: { $ref: '#/definitions/HabitBodyId' }
-  } */
+  //  #swagger.parameters['habitId'] = { description: 'habit habitId' }
   habitController.destroy,
 );
 

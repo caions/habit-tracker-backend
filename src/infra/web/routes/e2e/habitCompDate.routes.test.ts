@@ -95,4 +95,13 @@ describe('Habit Complete Date Controllers', () => {
     expect(completedHabits).toHaveLength(1);
     expect(response.status).toBe(200);
   });
+
+  it('POST should NOT be able to complete a habit with a invalid date time', async () => {
+    const response = await request(app).post('/').send({
+      habitId: '4567',
+      completedDate: '2000-02-03',
+    });
+    expect(response.status).toBe(400);
+    expect(response.body).toBe('completedDate invalid utc format');
+  });
 });
