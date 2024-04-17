@@ -4,7 +4,7 @@ import { HabitRepositoryProtocol } from '../domain/repositories/HabitRepositoryP
 import { AppError } from '../shared/errors/AppError';
 import { HabitCompletionDate } from '../domain/entities/HabitCompletionDate';
 import { isSameDate } from '../shared/utils/isSameDate';
-import { validUtcDate } from '../shared/utils/utcDateValidation';
+import { validISODate } from '../shared/utils/validISODate';
 
 export class HabitCompletionDateUseCase {
   constructor(
@@ -20,7 +20,7 @@ export class HabitCompletionDateUseCase {
       completedDate,
     };
 
-    if (!validUtcDate(completedDate)) {
+    if (!validISODate(completedDate)) {
       throw new AppError('completedDate invalid utc format');
     }
 
