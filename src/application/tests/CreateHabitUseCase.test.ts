@@ -40,4 +40,21 @@ describe('Store a habit', () => {
       message: 'habit already exist',
     });
   });
+
+  it('should NOT be able to create more of 7 habits', async () => {
+    await createHabitUseCase.execute('run');
+    await createHabitUseCase.execute('jump');
+    await createHabitUseCase.execute('study');
+    await createHabitUseCase.execute('pray');
+    await createHabitUseCase.execute('walk');
+    await createHabitUseCase.execute('swim');
+    await createHabitUseCase.execute('drive');
+    await expect(createHabitUseCase.execute('play')).rejects.toBeInstanceOf(
+      AppError,
+    );
+    await expect(createHabitUseCase.execute('play')).rejects.toEqual({
+      statusCode: 403,
+      message: 'maximum number of habits reached',
+    });
+  });
 });

@@ -16,6 +16,12 @@ export class CreateHabitUseCase {
     if (habit.name === '') {
       throw new AppError('empty name are not allowed');
     }
+
+    const checkNumbersHabitsCreated = await this.habitRepository.list();
+    if (checkNumbersHabitsCreated.length > 6) {
+      throw new AppError('maximum number of habits reached', 403);
+    }
+
     const checkHabitNameAlreadyExist = await this.habitRepository.findByName(
       habit.name,
     );

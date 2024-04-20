@@ -10,7 +10,7 @@ export function errorHandler(
   next: NextFunction,
 ) {
   if (error instanceof AppError) {
-    response.status(400).json(error.message);
+    response.status(error.statusCode).json(error.message);
     return;
   }
   if (error.stack) logger.error(error.stack);

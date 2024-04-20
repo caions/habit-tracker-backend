@@ -107,4 +107,19 @@ describe('Habits Controllers', () => {
     expect(response.status).toBe(400);
     expect(response.body).toBe('habit not found');
   });
+
+  it('should NOT be able to create more of 7 habits', async () => {
+    await request(app).post('/').send({ name: 'cook' });
+    await request(app).post('/').send({ name: 'joke' });
+    await request(app).post('/').send({ name: 'walk' });
+    await request(app).post('/').send({ name: 'pray' });
+    await request(app).post('/').send({ name: 'swim' });
+    await request(app).post('/').send({ name: 'run' });
+    await request(app).post('/').send({ name: 'listen' });
+    const response = await request(app).post('/').send({
+      name: 'play',
+    });
+    expect(response.status).toBe(403);
+    expect(response.body).toBe('maximum number of habits reached');
+  });
 });
