@@ -85,4 +85,23 @@ describe('Habit Complete Date Controllers', () => {
     expect(response.status).toBe(400);
     expect(response.body).toBe('habit not found');
   });
+
+  it('POST (should be able to uncomplete a habit regardless of the time)', async () => {
+    const response = await request(app).post('/').send({
+      habitId: '4567',
+      completedDate: '2000-02-03T23:59:59.000Z',
+    });
+    const completedHabits = await memoryHabitCompDateRepository.list();
+    expect(completedHabits).toHaveLength(1);
+    expect(response.status).toBe(200);
+  });
+
+  it('POST should NOT be able to complete a habit with a invalid date time', async () => {
+    const response = await request(app).post('/').send({
+      habitId: '4567',
+      completedDate: '2000-02-03',
+    });
+    expect(response.status).toBe(400);
+    expect(response.body).toBe('completedDate invalid utc format');
+  });
 });

@@ -36,8 +36,8 @@ export class PgHabitCompDateRepository
   async findByHabitIdAndDate(habitId: string, completedDate: string) {
     const [habit] = (
       await pool.query<PgHabitCompletionDate>(
-        `SELECT * FROM habit_completion_dates 
-        WHERE habit_id = $1 AND completed_date = $2`,
+        `SELECT *, completed_date AT TIME ZONE 'UTC' as completed_date FROM habit_completion_dates
+      WHERE habit_id = $1 AND DATE(completed_date) = $2`,
         [habitId, completedDate],
       )
     ).rows;
@@ -51,7 +51,7 @@ export class PgHabitCompDateRepository
   async delete(habitId: string, completedDate: string) {
     await pool.query(
       `DELETE FROM habit_completion_dates 
-      WHERE habit_id = $1 AND completed_date = $2`,
+      WHERE habit_id = $1 AND DATE(completed_date) = $2`,
       [habitId, completedDate],
     );
   }

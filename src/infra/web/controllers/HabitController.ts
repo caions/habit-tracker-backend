@@ -16,9 +16,9 @@ export class HabitController {
   };
 
   show = async (request: Request, response: Response): Promise<void> => {
-    const { id } = request.params;
+    const { habitId } = request.params;
     const findHabitUseCase = new FindHabitUseCase(this.habitRepository);
-    const result = await findHabitUseCase.execute(id);
+    const result = await findHabitUseCase.execute(habitId);
     response.json(result);
   };
 
@@ -30,10 +30,10 @@ export class HabitController {
   };
 
   update = async (request: Request, response: Response): Promise<void> => {
-    const { id } = request.query;
+    const { habitId } = request.params;
     const { name } = request.body;
     const habit = {
-      id: String(id),
+      id: String(habitId),
       name,
     };
     const updateHabitUseCase = new UpdateHabitUseCase(this.habitRepository);
@@ -42,9 +42,9 @@ export class HabitController {
   };
 
   destroy = async (request: Request, response: Response): Promise<void> => {
-    const { id } = request.body;
+    const { habitId } = request.params;
     const deleteHabitUseCase = new DeleteHabitUseCase(this.habitRepository);
-    await deleteHabitUseCase.execute(id);
+    await deleteHabitUseCase.execute(habitId);
     response.json();
   };
 }

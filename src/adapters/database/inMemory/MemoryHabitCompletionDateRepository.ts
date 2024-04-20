@@ -14,10 +14,20 @@ export class MemoryHabitCompletionDateRepository
   }
 
   async findByHabitIdAndDate(habitId: string, completedDate: string) {
-    return this.habitCompletionDates.find(
-      habit =>
-        habit.habitId === habitId && habit.completedDate === completedDate,
-    );
+    const completeDateWithoutHour = new Date(completedDate)
+      .toISOString()
+      .substring(0, 10);
+
+    return this.habitCompletionDates.find(habit => {
+      const storeCompletedDateWithoutHour = new Date(habit.completedDate)
+        .toISOString()
+        .substring(0, 10);
+
+      return (
+        habit.habitId === habitId &&
+        completeDateWithoutHour === storeCompletedDateWithoutHour
+      );
+    });
   }
 
   async list() {
@@ -25,9 +35,18 @@ export class MemoryHabitCompletionDateRepository
   }
 
   async delete(habitId: string, completedDate: string) {
-    this.habitCompletionDates = this.habitCompletionDates.filter(
-      habit =>
-        !(habit.habitId === habitId && habit.completedDate === completedDate),
-    );
+    const completedDateWithoutHour = new Date(completedDate)
+      .toISOString()
+      .substring(0, 10);
+
+    this.habitCompletionDates = this.habitCompletionDates.filter(habit => {
+      const storedCompletedDateWithouHour = new Date(habit.completedDate)
+        .toISOString()
+        .substring(0, 10);
+      return !(
+        habit.habitId === habitId &&
+        storedCompletedDateWithouHour === completedDateWithoutHour
+      );
+    });
   }
 }

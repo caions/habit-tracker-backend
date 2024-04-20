@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.1.7",
+    "version": "1.2.2",
     "title": "Habit Tracker API",
     "description": "Api to manage habits"
   },
@@ -43,6 +43,28 @@
             "description": ""
           }
         }
+      }
+    },
+    "/habits/{habitId}": {
+      "get": {
+        "tags": [
+          "Habits"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "habitId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "habit habitId"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       },
       "put": {
         "tags": [
@@ -51,10 +73,11 @@
         "description": "",
         "parameters": [
           {
-            "name": "id",
-            "description": "habit id",
-            "in": "query",
-            "type": "string"
+            "name": "habitId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "habit habitId"
           },
           {
             "name": "obj",
@@ -78,34 +101,11 @@
         "description": "",
         "parameters": [
           {
-            "name": "obj",
-            "in": "body",
-            "description": "habit uuid",
-            "schema": {
-              "$ref": "#/definitions/HabitBodyId"
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/habits/{id}": {
-      "get": {
-        "tags": [
-          "Habits"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
+            "name": "habitId",
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "habit id"
+            "description": "habit habitId"
           }
         ],
         "responses": {
@@ -145,6 +145,16 @@
         "responses": {
           "default": {
             "description": ""
+          }
+        }
+      }
+    },
+    "/migrations/execute": {
+      "post": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }

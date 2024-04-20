@@ -13,7 +13,6 @@ describe('Complete a Habit', () => {
   let habitCompletionDateUseCase: HabitCompletionDateUseCase;
   let listHabitCompletionDateUseCase: ListHabitCompletionDateUseCase;
   const completedDate = new Date().toISOString();
-  jest.useFakeTimers().setSystemTime(new Date('2020-01-01'));
 
   beforeEach(() => {
     memoryHabitRepository = new MemoryHabitRepository();
@@ -68,5 +67,28 @@ describe('Complete a Habit', () => {
     await expect(
       habitCompletionDateUseCase.execute(habitId, completedDate),
     ).rejects.toEqual({ statusCode: 400, message: 'habit not found' });
+  });
+
+  it('should be possible to uncomplete a habit regardless of the time.', async () => {
+    const createdHabit = await createHabitUseCase.execute('run');
+    const habitCompletionDate = await habitCompletionDateUseCase.execute(
+      createdHabit.id,
+      completedDate,
+    );
+    expect(habitCompletionDate?.habitId).toBe(createdHabit.id);
+    expect(habitCompletionDate?.completedDate).toBe(completedDate);
+  });
+
+  it('should not be possible to complete with an invalid date format.', async () => {
+    const createdHabit = await createHabitUseCase.execute('ver');
+    await expect(
+      habitCompletionDateUseCase.execute(
+        createdHabit.id,
+        '2024-02-11T01:00:00',
+      ),
+    ).rejects.toEqual({
+      statusCode: 400,
+      message: 'completedDate invalid utc format',
+    });
   });
 });
